@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Contact</title>
+    <link rel="stylesheet" href="contact_form.css" />
+    <link rel="stylesheet" href="mediaqueries.css" />
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+  </head>
+  <body>
+    <div class="contact-form-container">
+        <form onsubmit="sendMessage(); reset(); return false">
+            <h3>GET IN TOUCH</h3>
+            <input type="text" ID="name" placeholder="Your Name" required>
+            <input type="email" ID="email" placeholder="Your email" required>
+            <input type="text" ID="subject" placeholder="add your phone if you re okay with." required>
+            <textarea id="message" rows="4" placeholder="let's create "></textarea>
+            <button type="submit">send</button>
+        </form>
+    </div>
+    <script>
+        function sendMessage(){
+            (function (){
+                emailjs.init("Y4OH2JBX6N1e-9hER"); //account public key
+            })();
+           var serviceID = "service_8x2ic9h"; //email service ID  
+           var templateID = "template_wvcm1br";//email template ID
+           var params = {
+            sendername: document.querySelector("#name").value,
+            senderemail: document.querySelector("#email").value,
+            subject: document.querySelector("#subject").value,
+            message: document.querySelector("#message").value
+           };
+           emailjs.send(serviceID, templateID, params)
+           .then( res => {
+            alert('thank you,' + params['sendername'] + 'your message has been sent');
+            })
+            .catch();
+        }
+    </script>
+  </body>
+</html>
